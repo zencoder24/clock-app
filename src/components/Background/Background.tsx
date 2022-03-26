@@ -13,7 +13,7 @@ const Background = () => {
             bgImage={`url(${daytimeBg})`}
             bgSize='cover'
             filter='auto'
-            brightness='75%'
+            brightness='60%'
         />
     );
 };

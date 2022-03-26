@@ -15,12 +15,17 @@ import Background from "./components/Background/Background";
 export const App = () => (
   <ChakraProvider theme={theme}>
       <Container
-        padding="0px">
+        padding="0rem">
         <Background/>
-        <QuoteData/>
-        <TimeLocation/>
-        {/*<DataViewToggle/>*/}
-        {/*<AdditionalInfo/>*/}
+          <Container
+              padding="9% 6%"
+              color="white"
+          >
+            <QuoteData/>
+            <TimeLocation/>
+            <DataViewToggle/>
+            {/*<AdditionalInfo/>*/}
+          </Container>
       </Container>
 
   </ChakraProvider>

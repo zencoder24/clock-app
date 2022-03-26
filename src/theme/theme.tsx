@@ -11,7 +11,7 @@ const theme = extendTheme({
         h2:{
             fontWeight: "bold",
             fontSize: "56px",
-            line: '68px'
+            lineHeight: '68px'
         },
         h3:{
             fontWeight: "bold",
@@ -21,8 +21,7 @@ const theme = extendTheme({
             textTransform: "uppercase"
         },
         h4:{
-            fontWeight: "regular",
-            fontSize: "20px",
+            fontWeight: "200",
             lineHeight: "28px",
             letterSpacing: "4px",
             textTransform: "uppercase"
