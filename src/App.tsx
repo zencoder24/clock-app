@@ -8,25 +8,143 @@ import '@fontsource/inter/700.css'
 
 import QuoteData from "./components/QuoteData/QuoteData";
 import TimeLocation from "./components/TimeLocation/TimeLocation";
-import DataViewToggle from "./components/DataViewToggle/DataViewToggle";
+import AdditionalInfoToggle from "./components/AdditionalInfoToggle/AdditionalInfoToggle";
 import AdditionalInfo from "./components/AdditionalInfo/AdditionalInfo";
 import Background from "./components/Background/Background";
+import {useCallback, useEffect, useState} from "react";
+import {QuoteType} from "./models/quote.interface";
+import {TimeInfoType} from "./models/timeInfo.interface";
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-      <Container
-        padding="0rem">
-        <Background/>
-          <Container
-              padding="9% 6%"
-              color="white"
-          >
-            <QuoteData/>
-            <TimeLocation/>
-            <DataViewToggle/>
-            {/*<AdditionalInfo/>*/}
-          </Container>
-      </Container>
+import {getRandomQuote} from "./api/getQuoteCall";
+import {getCurrentTime} from "./api/getTimeCall";
+import { getLocation} from "./api/getLocationInfoCall.";
+import {LocationInfoType} from "./models/locationInfo.interface";
 
-  </ChakraProvider>
-)
+
+export const App = () => {
+    //Quote
+    const [dataQuote, setDataQuote] = useState<QuoteType>({
+        author: "",
+        en: "",
+        id: ""
+    })
+    //Time
+    const[timeInfo, setTimeInfo] = useState<TimeInfoType>({
+        abbrevTimezone: "",
+        dayOfWeek: 0,
+        dayOfYear: 0,
+        time: "",
+        timezone: "",
+        weekNum: 0,
+        timeOfDay: ""
+    })
+    const[isDaytime, setIsDaytime] = useState(false)
+
+    //IP Info
+    const[locationInfo, setLocationInfo] = useState<LocationInfoType>({city: "", country: ""})
+
+    //Quote API Fetch
+    const quoteFetch = useCallback(() => {
+            getRandomQuote()
+                .then((data) => {
+                    setDataQuote({
+                        id: data.id,
+                        en: data.en,
+                        author: data.author
+                    })
+                })
+        }, []);
+
+    //Time/Date API fetch and function
+    /*Sources:
+    https://www.toptal.com/software/definitive-guide-to-datetime-manipulation
+    https://www.tutorialspoint.com/converting-12-hour-format-time-to-24-hour-format-in-javascript
+     */
+    const convertTime = (timeStr: string) => {
+        const [time, modifier] = timeStr.split(' ');
+        let [hours, minutes] = timeStr.split(':');
+        if (hours === '12') {
+            hours = '00';
+        }
+        if (modifier === 'PM') {
+            hours = String(parseInt(hours, 10) + 12);
+        }
+        minutes = minutes.replace("AM","").replace("PM","")
+        return `${hours}:${minutes}`;
+    };
+    const getTimeOfDay = (timeStr: string) => {
+        let [hours, minutes] = timeStr.split(':');
+        if (parseInt(hours) >= 5 && parseInt(hours) < 12){
+            setIsDaytime(true)
+            return 'morning'
+        } if (parseInt(hours) >= 12 && parseInt(hours) < 18 ){
+            setIsDaytime(true)
+            return 'afternoon'
+        } else{
+            setIsDaytime(false)
+            return 'evening'
+        }
+    };
+
+    const timeFetch = useCallback(() =>{
+        getCurrentTime()
+            .then((data) => {
+                console.log(data)
+                const getTime = new Date(data.datetime)
+                    .toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit' })
+                setTimeInfo({
+                    time: convertTime(getTime),
+                    abbrevTimezone: data.abbreviation,
+                    dayOfWeek: data.day_of_week,
+                    dayOfYear: data.day_of_year,
+                    timezone: data.timezone,
+                    weekNum: data.week_number,
+                    timeOfDay: getTimeOfDay(convertTime(getTime)),
+                })
+                // setTime(convertTime(getTime))
+                // setAbbr(data.abbreviation)
+            })
+    },[])
+
+    //LocationInfo Functions
+    const locationInfoFetch = useCallback(() => {
+        getLocation()
+            .then((data) =>{
+                setLocationInfo({
+                    city: data.city.name,
+                    country: data.country.code
+                })
+            })
+    },[])
+
+    //Pulls Quote, Time, and Location Info when the components are mounted
+    useEffect(() =>{
+        locationInfoFetch();
+       quoteFetch();
+       // const interval = setInterval(() => {
+           timeFetch();
+       // },1000)
+       //  return () => clearInterval(interval)
+    },[timeFetch])
+
+    return(
+    <ChakraProvider theme={theme}>
+        <Container
+            padding="0rem">
+            <Background isDaytime={isDaytime}/>
+            <Container
+                padding="9% 6%"
+                color="white"
+            >
+                <QuoteData dataQuote={dataQuote} onClick={quoteFetch}/>
+                <TimeLocation timeOfDay={timeInfo.timeOfDay} isDaytime={isDaytime}  time={timeInfo.time} abbr={timeInfo.abbrevTimezone} city={locationInfo.city} country={locationInfo.country}/>
+                <AdditionalInfoToggle/>
+                {/*<AdditionalInfo/>*/}
+            </Container>
+        </Container>
+
+    </ChakraProvider>
+    )
+
+
+}

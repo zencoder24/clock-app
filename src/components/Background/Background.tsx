@@ -1,8 +1,13 @@
 import React from 'react';
 import {Container} from "@chakra-ui/react";
-import daytimeBg from "../../assets/bg-image-daytime.jpg";
+import daytimeBg from "../../assets/images/mobile/bg-image-daytime.jpg";
+import nighttimeBg from '../../assets/images/mobile/bg-image-nighttime.jpg'
 
-const Background = () => {
+interface IProps_Background{
+    isDaytime: boolean
+}
+
+const Background:React.FC<IProps_Background> = ({isDaytime}) => {
     return (
         <Container
             maxW='100%'
@@ -10,7 +15,7 @@ const Background = () => {
             position='absolute'
             height="100vh"
             overflow="auto"
-            bgImage={`url(${daytimeBg})`}
+            bgImage={isDaytime? `url(${daytimeBg})` : `url(${nighttimeBg})`}
             bgSize='cover'
             filter='auto'
             brightness='60%'

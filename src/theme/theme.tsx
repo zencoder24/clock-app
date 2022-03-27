@@ -23,7 +23,7 @@ const theme = extendTheme({
         h4:{
             fontWeight: "200",
             lineHeight: "28px",
-            letterSpacing: "4px",
+            letterSpacing: "3.75px",
             textTransform: "uppercase"
         },
         h5:{
