@@ -5,16 +5,17 @@ import {QuoteType} from "../../models/quote.interface";
 interface IProps_FetchQuote{
     onClick: React.MouseEventHandler<SVGElement>
     dataQuote: QuoteType
+    isExpanded: boolean
 }
 
-const QuoteData: React.FC<IProps_FetchQuote> = ({onClick, dataQuote}) => {
+const QuoteData: React.FC<IProps_FetchQuote> = ({onClick, dataQuote, isExpanded}) => {
     return (
-        <Box height='17.18rem'>
+        <Box p='0 9%' height={{base:'15.18rem', md:'34.18rem'}} display={isExpanded? 'none': 'block'}>
             <Flex justifyContent='space-between'>
                 <Box
                     fontWeight="300"
-                    fontSize={{base:"0.75rem"}}
-                    lineHeight={{base:"1.375rem"}}
+                    fontSize={{base:"0.75rem", md:"1.125rem" }}
+                    lineHeight={{base:"1.375rem", md:"1.75rem"}}
                     textStyle="body">
                     {dataQuote.en}
                 </Box>
@@ -27,8 +28,8 @@ const QuoteData: React.FC<IProps_FetchQuote> = ({onClick, dataQuote}) => {
             </Flex>
             <Box
                 fontWeight="700"
-                fontSize={{base:"0.75rem"}}
-                lineHeight={{base:"1.375rem"}}
+                fontSize={{base:"0.75rem", md:"1.125rem"}}
+                lineHeight={{base:"1.375rem", md:"1.75rem"}}
                 textStyle="body">
                 {dataQuote.author}
             </Box>

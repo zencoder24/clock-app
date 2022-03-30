@@ -1,32 +1,51 @@
 import React from 'react';
 import {Box, Button, Icon} from "@chakra-ui/react";
-import { ChevronDownIcon} from '@chakra-ui/icons'
+import { ChevronDownIcon, ChevronUpIcon} from '@chakra-ui/icons'
 
-const AdditionalInfoToggle = () => {
+interface IProps_AdditionalInfo{
+    isExpanded: boolean,
+    setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const AdditionalInfoToggle:React.FC<IProps_AdditionalInfo> = ({isExpanded, setIsExpanded}) => {
     return (
-        <div>
+        <Box p="0 9%">
             <Button
+                onClick={() => setIsExpanded(!isExpanded)}
                 textStyle='h4'
-                mt='64px'
-                height='39px'
-                width='115px'
+                mt='4rem'
+                height={{base:'2.4375rem', md:'3.5rem'}}
+                width={{base:'7.1875rem', md:'9.125rem'}}
                 lineHeight='1.2'
-                borderRadius='20px'
-                fontSize='12px'
+                borderRadius={{base:'1.25rem', md:'2.25rem'}}
+                fontSize={{base:'0.75rem', md: '1rem'}}
                 fontWeight='bold'
                 bg='white'
                 color='black'
-                rightIcon={<ChevronDownIcon
-                                padding='3px'
-                                color='white'
-                                fontSize='34px'
-                                borderRadius='20px'
-                                bg='#303030'
-                                mr='-15px' />}
+                rightIcon={ isExpanded? <ChevronUpIcon
+                                        padding='0.1875rem'
+                                        h={{base:'2rem',md:'2.5rem'}}
+                                        w={{base:'2rem',md:'2.5rem'}}
+                                        color='white'
+                                        fontSize='2.125rem'
+                                        borderRadius='1.25rem'
+                                        bg='#303030'
+                                        mr='-0.9375rem' />
+                                        :
+                                        <ChevronDownIcon
+                                        padding='0.1875rem'
+                                        h={{base:'2rem',md:'2.5rem'}}
+                                        w={{base:'2rem',md:'2.5rem'}}
+                                        color='white'
+                                        fontSize='2.125rem'
+                                        borderRadius='1.25rem'
+                                        bg='#303030'
+                                        mr='-0.9375rem' />
+                                        }
                >
-                    More
+                {isExpanded? 'Less': 'More'}
             </Button>
-        </div>
+        </Box>
     );
 };
 

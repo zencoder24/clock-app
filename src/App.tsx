@@ -40,8 +40,9 @@ export const App = () => {
     })
     const[isDaytime, setIsDaytime] = useState(false)
 
-    //IP Info
+    //Location Info
     const[locationInfo, setLocationInfo] = useState<LocationInfoType>({city: "", country: ""})
+    const[isExpanded, setIsExpanded] = useState(false);
 
     //Quote API Fetch
     const quoteFetch = useCallback(() => {
@@ -89,7 +90,7 @@ export const App = () => {
     const timeFetch = useCallback(() =>{
         getCurrentTime()
             .then((data) => {
-                console.log(data)
+                console.log( typeof data)
                 const getTime = new Date(data.datetime)
                     .toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit' })
                 setTimeInfo({
@@ -101,8 +102,6 @@ export const App = () => {
                     weekNum: data.week_number,
                     timeOfDay: getTimeOfDay(convertTime(getTime)),
                 })
-                // setTime(convertTime(getTime))
-                // setAbbr(data.abbreviation)
             })
     },[])
 
@@ -130,16 +129,35 @@ export const App = () => {
     return(
     <ChakraProvider theme={theme}>
         <Container
+            margin='0'
             padding="0rem">
             <Background isDaytime={isDaytime}/>
             <Container
-                padding="9% 6%"
+                padding="9% 0"
                 color="white"
             >
-                <QuoteData dataQuote={dataQuote} onClick={quoteFetch}/>
-                <TimeLocation timeOfDay={timeInfo.timeOfDay} isDaytime={isDaytime}  time={timeInfo.time} abbr={timeInfo.abbrevTimezone} city={locationInfo.city} country={locationInfo.country}/>
-                <AdditionalInfoToggle/>
-                {/*<AdditionalInfo/>*/}
+                <QuoteData
+                    dataQuote={dataQuote}
+                    onClick={quoteFetch}
+                    isExpanded={isExpanded}/>
+                <TimeLocation
+                    isExpanded={isExpanded}
+                    timeOfDay={timeInfo.timeOfDay}
+                    isDaytime={isDaytime}
+                    time={timeInfo.time}
+                    abbr={timeInfo.abbrevTimezone}
+                    city={locationInfo.city}
+                    country={locationInfo.country}/>
+                <AdditionalInfoToggle
+                    isExpanded={isExpanded}
+                    setIsExpanded={setIsExpanded}/>
+                <AdditionalInfo
+                    isExpanded={isExpanded}
+                    timezone={timeInfo.timezone}
+                    dayOfTheYear={timeInfo.dayOfYear}
+                    dayOfTheWeek={timeInfo.dayOfWeek}
+                    weekNumber={timeInfo.weekNum}
+                    isDaytime={isDaytime}/>
             </Container>
         </Container>
 

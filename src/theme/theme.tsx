@@ -10,7 +10,6 @@ const theme = extendTheme({
         },
         h2:{
             fontWeight: "bold",
-            fontSize: "56px",
             lineHeight: '68px'
         },
         h3:{
@@ -51,7 +50,7 @@ const theme = extendTheme({
         lightgrey: "#303030"
     },
     breakpoints:{
-        sm: "30em", //480px
+        sm: "21.875em", //480px
         md: "48em", //768px
         lg: "64em", //1024px
         xl: "90em", //1440px
