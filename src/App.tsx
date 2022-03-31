@@ -1,24 +1,32 @@
 import * as React from "react"
-import {Box, ChakraProvider, Container, Image} from "@chakra-ui/react"
+import {Box, ChakraProvider, Container, Flex, Image} from "@chakra-ui/react"
 import theme from "./theme/theme"
 
 import '@fontsource/inter/400.css'
 import '@fontsource/inter/700.css'
 //Components
 
+import {baseAppStyles} from "./App_Styles";
 import QuoteData from "./components/QuoteData/QuoteData";
 import TimeLocation from "./components/TimeLocation/TimeLocation";
 import AdditionalInfoToggle from "./components/AdditionalInfoToggle/AdditionalInfoToggle";
 import AdditionalInfo from "./components/AdditionalInfo/AdditionalInfo";
-import Background from "./components/Background/Background";
 import {useCallback, useEffect, useState} from "react";
 import {QuoteType} from "./models/quote.interface";
 import {TimeInfoType} from "./models/timeInfo.interface";
 
+//API Calls
 import {getRandomQuote} from "./api/getQuoteCall";
 import {getCurrentTime} from "./api/getTimeCall";
 import { getLocation} from "./api/getLocationInfoCall.";
 import {LocationInfoType} from "./models/locationInfo.interface";
+
+import daytimeBgMobile from "./assets/images/mobile/bg-image-daytime.jpg";
+import nighttimeBgMobile from "./assets/images/mobile/bg-image-nighttime.jpg";
+import daytimeBgTablet from "./assets/images/tablet/bg-image-daytime.jpg";
+import nighttimeBgTablet from "./assets/images/tablet/bg-image-nighttime.jpg";
+import daytimeBgDesktop from "./assets/images/desktop/bg-image-daytime.jpg";
+import nighttimeBgDesktop from "./assets/images/desktop/bg-image-nighttime.jpg";
 
 
 export const App = () => {
@@ -126,31 +134,39 @@ export const App = () => {
        //  return () => clearInterval(interval)
     },[timeFetch])
 
+
+    const darken = 'linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),'
     return(
     <ChakraProvider theme={theme}>
-        <Container
-            margin='0'
-            padding="0rem">
-            <Background isDaytime={isDaytime}/>
-            <Container
-                padding="9% 0"
-                color="white"
-            >
-                <QuoteData
-                    dataQuote={dataQuote}
-                    onClick={quoteFetch}
-                    isExpanded={isExpanded}/>
-                <TimeLocation
-                    isExpanded={isExpanded}
-                    timeOfDay={timeInfo.timeOfDay}
-                    isDaytime={isDaytime}
-                    time={timeInfo.time}
-                    abbr={timeInfo.abbrevTimezone}
-                    city={locationInfo.city}
-                    country={locationInfo.country}/>
-                <AdditionalInfoToggle
-                    isExpanded={isExpanded}
-                    setIsExpanded={setIsExpanded}/>
+        <Box
+            sx={baseAppStyles}
+            background={{
+                base:isDaytime? `${darken}url(${daytimeBgMobile})` : `${darken}url(${nighttimeBgMobile})`,
+                md:isDaytime?  `${darken}url(${daytimeBgTablet})` : `${darken}url(${nighttimeBgTablet})`,
+                lg:isDaytime?  `${darken}url(${daytimeBgDesktop})` : `${darken}url(${nighttimeBgDesktop})`
+            }}
+        >
+            <Container position='relative' minH='100vh' color="white" maxW={{lg:'125ch'}}>
+                <Flex p={{base:'5% 3%',xl:"5% 0%"}} mb='35vh' flexDirection={{base:'column', xl:'row'}} alignItems={{xl:'flex-end'}}>
+                    <Box as='div' flexGrow='3'>
+                        <QuoteData
+                            dataQuote={dataQuote}
+                            onClick={quoteFetch}
+                            isExpanded={isExpanded}/>
+
+                        <TimeLocation
+                            isExpanded={isExpanded}
+                            timeOfDay={timeInfo.timeOfDay}
+                            isDaytime={isDaytime}
+                            time={timeInfo.time}
+                            abbr={timeInfo.abbrevTimezone}
+                            city={locationInfo.city}
+                            country={locationInfo.country}/>
+                    </Box>
+                    <AdditionalInfoToggle
+                        isExpanded={isExpanded}
+                        setIsExpanded={setIsExpanded}/>
+                </Flex>
                 <AdditionalInfo
                     isExpanded={isExpanded}
                     timezone={timeInfo.timezone}
@@ -159,7 +175,17 @@ export const App = () => {
                     weekNumber={timeInfo.weekNum}
                     isDaytime={isDaytime}/>
             </Container>
-        </Container>
+
+        </Box>
+        {/*<Container*/}
+        {/*    margin='0'*/}
+        {/*    padding="0rem">*/}
+        {/*    <Background isDaytime={isDaytime}>*/}
+
+
+            {/*</Background>*/}
+
+        {/*</Container>*/}
 
     </ChakraProvider>
     )
