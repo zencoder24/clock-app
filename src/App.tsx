@@ -1,9 +1,11 @@
 import * as React from "react"
 import {Box, ChakraProvider, Container, Flex, Image} from "@chakra-ui/react"
 import theme from "./theme/theme"
+import '../node_modules/@fontsource/inter/400.css'
+import '../node_modules/@fontsource/inter/700.css'
 
-import '@fontsource/inter/400.css'
-import '@fontsource/inter/700.css'
+// import '@fontsource/inter/400.css'
+// import '@fontsource/inter/700.css'
 //Components
 
 import {baseAppStyles} from "./App_Styles";
