@@ -3,8 +3,8 @@ import {Box, ChakraProvider, Container, Flex, Grid, GridItem, Image, SimpleGrid}
 import theme from "./theme/theme"
 
 //Font
-import '@fontsource/inter/400.css'
-import '@fontsource/inter/700.css'
+// import '@fontsource/inter/400.css'
+// import '@fontsource/inter/700.css'
 //App Styles
 import {baseAppStyles} from "./App_Styles";
 //Components
