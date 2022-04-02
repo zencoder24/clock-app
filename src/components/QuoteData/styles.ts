@@ -1,7 +1,7 @@
 export const QuoteStyles = {
     base:{
-        height:{base:'19.18rem', md:'34.18rem', xl:'23.18rem'},
-        maxW:{m:'55ch',xl:"80%"},
+        height:{base:'19.18rem', md:'18.18rem', xl:'19.18rem'},
+        width:{m:'55ch',xl:"50%"},
 
     },
 

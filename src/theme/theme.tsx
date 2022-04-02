@@ -2,45 +2,22 @@ import { extendTheme } from '@chakra-ui/react'
 
 const theme = extendTheme({
     textStyles: {
-        h1: {
-            fontSize: "200px",
-            fontWeight: "bold",
-            lineHeight: "200px",
-            letterSpacing: "-5px"
-        },
         h2:{
             fontWeight: "bold",
-            lineHeight: '68px'
         },
         h3:{
             fontWeight: "bold",
-            fontSize: "24px",
-            lineHeight: "28px",
             letterSpacing: "4.8px",
             textTransform: "uppercase"
         },
         h4:{
             fontWeight: "200",
-            lineHeight: "28px",
-            letterSpacing: "3.75px",
+            letterSpacing: "0.234375rem",
             textTransform: "uppercase"
         },
         h5:{
             fontWeight: "bold",
-            fontSize: "18px",
-            lineHeight: "28px"
         },
-        h6:{
-            fontWeight: "bold",
-            fontSize: "15px",
-            lineHeight: "28px",
-            letterSpacing: "3px",
-        },
-        body:{
-            fontWeight: "regular",
-            fontSize: "18px",
-            lineHeight: "28px",
-        }
     },
     fonts: {
         heading: 'Inter, sans-serif',

@@ -1,14 +1,13 @@
 import * as React from "react"
-import {Box, ChakraProvider, Container, Flex, Image} from "@chakra-ui/react"
+import {Box, ChakraProvider, Container, Flex, Grid, GridItem, Image, SimpleGrid} from "@chakra-ui/react"
 import theme from "./theme/theme"
-// import '../node_modules/@fontsource/inter/400.css'
-// import '../node_modules/@fontsource/inter/700.css'
 
+//Font
 import '@fontsource/inter/400.css'
 import '@fontsource/inter/700.css'
-//Components
-
+//App Styles
 import {baseAppStyles} from "./App_Styles";
+//Components
 import QuoteData from "./components/QuoteData/QuoteData";
 import TimeLocation from "./components/TimeLocation/TimeLocation";
 import AdditionalInfoToggle from "./components/AdditionalInfoToggle/AdditionalInfoToggle";
@@ -21,8 +20,9 @@ import {TimeInfoType} from "./models/timeInfo.interface";
 import {getRandomQuote} from "./api/getQuoteCall";
 import {getCurrentTime} from "./api/getTimeCall";
 import { getLocation} from "./api/getLocationInfoCall.";
+//Location Info Interface
 import {LocationInfoType} from "./models/locationInfo.interface";
-
+//Backgrounds
 import daytimeBgMobile from "./assets/images/mobile/bg-image-daytime.jpg";
 import nighttimeBgMobile from "./assets/images/mobile/bg-image-nighttime.jpg";
 import daytimeBgTablet from "./assets/images/tablet/bg-image-daytime.jpg";
@@ -32,13 +32,13 @@ import nighttimeBgDesktop from "./assets/images/desktop/bg-image-nighttime.jpg";
 
 
 export const App = () => {
-    //Quote
+    //Quote State
     const [dataQuote, setDataQuote] = useState<QuoteType>({
         author: "",
         en: "",
         id: ""
     })
-    //Time
+    //Time State
     const[timeInfo, setTimeInfo] = useState<TimeInfoType>({
         abbrevTimezone: "",
         dayOfWeek: 0,
@@ -50,11 +50,11 @@ export const App = () => {
     })
     const[isDaytime, setIsDaytime] = useState(false)
 
-    //Location Info
+    //Location Info State
     const[locationInfo, setLocationInfo] = useState<LocationInfoType>({city: "", country: ""})
     const[isExpanded, setIsExpanded] = useState(false);
 
-    //Quote API Fetch
+    //Quote API Call
     const quoteFetch = useCallback(() => {
             getRandomQuote()
                 .then((data) => {
@@ -66,7 +66,7 @@ export const App = () => {
                 })
         }, []);
 
-    //Time/Date API fetch and function
+    //Time/Date API Call and functions that converts the time received to military time and gets the time of day from the value
     /*Sources:
     https://www.toptal.com/software/definitive-guide-to-datetime-manipulation
     https://www.tutorialspoint.com/converting-12-hour-format-time-to-24-hour-format-in-javascript
@@ -96,7 +96,6 @@ export const App = () => {
             return 'evening'
         }
     };
-
     const timeFetch = useCallback(() =>{
         getCurrentTime()
             .then((data) => {
@@ -115,7 +114,7 @@ export const App = () => {
             })
     },[])
 
-    //LocationInfo Functions
+    //LocationInfo API Call
     const locationInfoFetch = useCallback(() => {
         getLocation()
             .then((data) =>{
@@ -130,14 +129,17 @@ export const App = () => {
     useEffect(() =>{
         locationInfoFetch();
        quoteFetch();
+        // I didnt want to make continuous calls to the API to update the clock in real time. Uncommenting the setInterval below will.
        // const interval = setInterval(() => {
            timeFetch();
        // },1000)
        //  return () => clearInterval(interval)
     },[timeFetch])
 
-
+    //Shortens the values of Background Prop by placing the gradient that darkens the background photo in a variable
     const darken = 'linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),'
+
+
     return(
     <ChakraProvider theme={theme}>
         <Box
@@ -149,13 +151,12 @@ export const App = () => {
             }}
         >
             <Container position='relative' minH='100vh' color="white" maxW={{lg:'125ch'}}>
-                <Flex p={{base:'5% 3%',xl:"5% 0%"}} mb='35vh' flexDirection={{base:'column', xl:'row'}} alignItems={{xl:'flex-end'}}>
-                    <Box as='div' flexGrow='3'>
+                <Flex h='75%' p={{base:'5% 3%',xl:"5% 0%"}} mb='35vh' flexDirection={{base:'column', xl:'row'}} justifyContent={{xl:'space-between'}} alignItems={{xl:'flex-end'}}>
+                    <Box as='div'>
                         <QuoteData
                             dataQuote={dataQuote}
                             onClick={quoteFetch}
                             isExpanded={isExpanded}/>
-
                         <TimeLocation
                             isExpanded={isExpanded}
                             timeOfDay={timeInfo.timeOfDay}
@@ -165,7 +166,7 @@ export const App = () => {
                             city={locationInfo.city}
                             country={locationInfo.country}/>
                     </Box>
-                    <AdditionalInfoToggle
+                         <AdditionalInfoToggle
                         isExpanded={isExpanded}
                         setIsExpanded={setIsExpanded}/>
                 </Flex>
@@ -176,19 +177,10 @@ export const App = () => {
                     dayOfTheWeek={timeInfo.dayOfWeek}
                     weekNumber={timeInfo.weekNum}
                     isDaytime={isDaytime}/>
+
             </Container>
 
         </Box>
-        {/*<Container*/}
-        {/*    margin='0'*/}
-        {/*    padding="0rem">*/}
-        {/*    <Background isDaytime={isDaytime}>*/}
-
-
-            {/*</Background>*/}
-
-        {/*</Container>*/}
-
     </ChakraProvider>
     )
 

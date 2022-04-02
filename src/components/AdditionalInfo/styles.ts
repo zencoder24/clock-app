@@ -2,11 +2,11 @@ export const Add_InfoStyles = {
     base: {
         backdropFilter:'blur(10px)',
         minW:'100%',
-        maxH: {base: '30vh', lg:"45vh"},
+        maxH: {base: '30vh', md:'40vh',lg:"45vh"},
         position:'fixed',
         left:'0rem',
         bottom:'0px',
-        p:{base:"8% 10%", md:"2% 10%", lg:"6% 15%"}
+        p:{base:"8% 10%", md:"8% 10%", lg:"6% 15%"}
     },
 
     container:{

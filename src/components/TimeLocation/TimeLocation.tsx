@@ -17,7 +17,7 @@ interface IProps_TimeLocation{
 
 const TimeLocation: React.FC<IProps_TimeLocation> = ({ isExpanded, time, abbr, city, country, timeOfDay, isDaytime}) => {
     return (
-        <Box sx={TimeLocationStyle.base} mt={{base: isExpanded? '20%':'0', lg:isExpanded? '7%': "0" }}  >
+        <Box sx={TimeLocationStyle.base} mt={{base: isExpanded? '20%':'0', md: isExpanded? '6%': '0', lg:isExpanded? '0%': "0", xl:isExpanded? '7%': "0" }}  >
             <Flex>
                 {isDaytime?  <SunIcon sx={TimeLocationStyle.icon} /> : <MoonIcon sx={TimeLocationStyle.icon}/>}
                 <Box sx={TimeLocationStyle.greeting}  >

@@ -1,6 +1,6 @@
 export const TimeLocationStyle = {
     base: {
-        maxW:{base:'80%', md:'75%'}
+        maxW:{base:'80%', md:'75%', lg: '85%', xl: '95%' }
 
     },
 
@@ -23,7 +23,7 @@ export const TimeLocationStyle = {
     timeContainer:{
         alignItems:'baseline',
         justifyContent:{ base: 'space-between',xl:'normal'},
-        // gap:{base:'1.875rem', md:'3.125rem'}
+        maxW: '45%'
     },
 
     time:{
