@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 
-const  URL = "http://worldtimeapi.org/api/ip";
+const  URL = "https://worldtimeapi.org/api/ip";
 
 
 //This call get get a Time Object from the API.
