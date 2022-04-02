@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Flex, Spacer} from "@chakra-ui/react";
+import {Box, Flex} from "@chakra-ui/react";
 import {SunIcon} from "./SunIcon";
 import {MoonIcon} from './MoonIcon'
 // import {QuoteType} from "../../models/quote.interface"

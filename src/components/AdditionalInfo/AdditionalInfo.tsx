@@ -1,6 +1,5 @@
 import React from 'react';
 import {Box, Container, Flex, Text} from "@chakra-ui/react";
-import {QuoteType} from "../../models/quote.interface";
 import {Add_InfoStyles} from "./styles";
 
 interface IProps_AdditionalInfoToggle{

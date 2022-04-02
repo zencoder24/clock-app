@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Button, Container, Flex, Icon} from "@chakra-ui/react";
+import {Box, Flex, Icon} from "@chakra-ui/react";
 import {QuoteType} from "../../models/quote.interface";
 import {QuoteStyles} from "./styles";
 
