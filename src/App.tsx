@@ -151,7 +151,7 @@ export const App = () => {
             }}
         >
             <Container position='relative' minH='100vh' color="white" maxW={{lg:'125ch'}}>
-                <Flex h='75%' p={{base:'5% 3%',xl:"5% 0%"}} mb='35vh' flexDirection={{base:'column', xl:'row'}} justifyContent={{xl:'space-between'}} alignItems={{xl:'flex-end'}}>
+                <Flex h='75%' p={{base:'5% 3%',xl:"5% 0%"}} mb='35vh' flexDirection={{base:'column', lg:'row'}} justifyContent={{lg:'space-between'}} alignItems={{lg:'flex-end'}}>
                     <Box as='div'>
                         <QuoteData
                             dataQuote={dataQuote}
