@@ -19,7 +19,8 @@ export const Add_ToggleStyle = {
         color:'white',
         fontSize:'2.125rem',
         borderRadius:'1.25rem',
-        bg:'#303030',
+        bg:'black',
+        _hover:{ bg: 'lightgrey' },
         mr:'-0.9375rem',
     }
 }

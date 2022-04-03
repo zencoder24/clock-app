@@ -6,7 +6,7 @@ export const Add_InfoStyles = {
         position:'fixed',
         left:'0rem',
         bottom:'0px',
-        p:{base:"8% 10%", md:"8% 10%", lg:"6% 15%"}
+        p:{base:"3% 15%", md:"8% 10%", lg:"6% 15%"}
     },
 
     container:{
