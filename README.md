@@ -32,9 +32,9 @@ Users should be able to:
 
 ### Screenshot
 
-![](../screenshots/desktop.png)
-![](../screenshots/tablet-open.png)
-![](../screenshots/mobile.png)
+![](screenshots/desktop.png)
+![](screenshots/tablet-open.png)
+![](screenshots/mobile.png)
 
 
 ### Links
